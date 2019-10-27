@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Mac Source Tree fatal: Authentication failed解决办法</title>
+      <link href="/2019/10/27/Mac-Source-Tree-fatal-Authentication-failed%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+      <url>/2019/10/27/Mac-Source-Tree-fatal-Authentication-failed%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h3 id="在git改完密码后，操作SourceTree会出现-Authentication-failed报错，是由sourceTree中保存的密码还是旧密码导致，此时需将SourceTree中的用户删掉，重新输入新的用户名密码即可。"><a href="#在git改完密码后，操作SourceTree会出现-Authentication-failed报错，是由sourceTree中保存的密码还是旧密码导致，此时需将SourceTree中的用户删掉，重新输入新的用户名密码即可。" class="headerlink" title="在git改完密码后，操作SourceTree会出现 Authentication failed报错，是由sourceTree中保存的密码还是旧密码导致，此时需将SourceTree中的用户删掉，重新输入新的用户名密码即可。"></a>在git改完密码后，操作SourceTree会出现 Authentication failed报错，是由sourceTree中保存的密码还是旧密码导致，此时需将SourceTree中的用户删掉，重新输入新的用户名密码即可。</h3><h3 id="分两步："><a href="#分两步：" class="headerlink" title="分两步："></a>分两步：</h3><p>1、点击软件左上角SourceTree -&gt; 偏好设置，如下图所示</p><p><img src="https://user-gold-cdn.xitu.io/2019/10/22/16df3c7955bc3566?w=1306&h=1270&f=png&s=1010207" alt=""></p><p>2、点击弹框右上角“高级”，将下图红框中用户名移除掉即可。</p><p><img src="https://user-gold-cdn.xitu.io/2019/10/22/16df3c7de738922d?w=1292&h=1000&f=png&s=600178" alt=""></p><p>大功告成！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SourceTree </tag>
+            
+            <tag> MacBook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浏览器中的Event loop 与 Node的 Event loop</title>
+      <link href="/2019/10/27/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84Event-loop-%E4%B8%8E-Node%E7%9A%84-Event-loop/"/>
+      <url>/2019/10/27/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%AD%E7%9A%84Event-loop-%E4%B8%8E-Node%E7%9A%84-Event-loop/</url>
+      
+        <content type="html"><![CDATA[<h2 id="浏览器中的Event-loop-与-Node的-Event-loop"><a href="#浏览器中的Event-loop-与-Node的-Event-loop" class="headerlink" title="浏览器中的Event loop 与 Node的 Event loop##"></a>浏览器中的Event loop 与 Node的 Event loop##</h2><h5 id="参考链接https-yuchengkai-cn-docs-frontend-browser-html-poll"><a href="#参考链接https-yuchengkai-cn-docs-frontend-browser-html-poll" class="headerlink" title="参考链接https://yuchengkai.cn/docs/frontend/browser.html#poll"></a>参考链接<a href="https://yuchengkai.cn/docs/frontend/browser.html#poll" target="_blank" rel="noopener" title="参考链接">https://yuchengkai.cn/docs/frontend/browser.html#poll</a></h5><h3 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h3><ol><li>JS 是门非阻塞单线程语言，因为在最初 JS 就是为了和浏览器交互而诞生的。如果 JS 是门多线程的语言话，我们在多个线程中处理 DOM 就可能会发生问题。</li><li>HTML5 标准规定setTimeout这个函数第二个参数不得小于 4 毫秒，不足会自动增加。</li><li>浏览器正确的一次 Event loop 顺序是这样的<blockquote><p>执行同步代码，这属于宏任务。</p><p>执行栈为空，查询是否有微任务需要执行</p><p>执行所有微任务</p><p>必要的话渲染 UI</p><p>然后开始下一轮 Event loop，执行宏任务中的异步代码</p></blockquote><h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><img src="https://user-gold-cdn.xitu.io/2019/1/13/1684523ab43808ad?w=440&h=417&f=png&s=9529" alt="Node Event Loop"></li></ol><h4 id="timer"><a href="#timer" class="headerlink" title="timer"></a>timer</h4><p>timers 阶段会执行 setTimeout 和 setInterval</p><p>一个 timer 指定的时间并不是准确时间，而是在达到这个时间后尽快执行回调，可能会因为系统正在执行别的事务而延迟。</p><p>下限的时间有一个范围：[1, 2147483647] ，如果设定的时间不在这个范围，将被设置为 1。</p><h4 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h4><p>I/O 阶段会执行除了 close 事件，定时器和 setImmediate 的回调</p><h4 id="idle-prepare"><a href="#idle-prepare" class="headerlink" title="idle, prepare"></a>idle, prepare</h4><p>idle, prepare 阶段内部实现</p><h4 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h4><p>poll 阶段很重要，这一阶段中，系统会做两件事情</p><p>执行到点的定时器<br>执行 poll 队列中的事件<br>并且当 poll 中没有定时器的情况下，会发现以下两件事情</p><p>如果 poll 队列不为空，会遍历回调队列并同步执行，直到队列为空或者系统限制<br>如果 poll 队列为空，会有两件事发生<br>如果有 setImmediate 需要执行，poll 阶段会停止并且进入到 check 阶段执行 setImmediate<br>如果没有 setImmediate 需要执行，会等待回调被加入到队列中并立即执行回调<br>如果有别的定时器需要被执行，会回到 timer 阶段执行回调。</p><h4 id="check"><a href="#check" class="headerlink" title="check"></a>check</h4><p>check 阶段执行 setImmediate</p><h4 id="close-callbacks"><a href="#close-callbacks" class="headerlink" title="close callbacks"></a>close callbacks</h4><p>close callbacks 阶段执行 close 事件</p><p>并且在 Node 中，有些情况下的定时器执行顺序是随机的</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Node </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Node </tag>
+            
+            <tag> 事件循环 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker部署NodeJs实践（二、部署images和容器）</title>
+      <link href="/2019/10/27/Docker%E9%83%A8%E7%BD%B2NodeJs%E5%AE%9E%E8%B7%B5%EF%BC%88%E4%BA%8C%E3%80%81%E9%83%A8%E7%BD%B2images%E5%92%8C%E5%AE%B9%E5%99%A8%EF%BC%89/"/>
+      <url>/2019/10/27/Docker%E9%83%A8%E7%BD%B2NodeJs%E5%AE%9E%E8%B7%B5%EF%BC%88%E4%BA%8C%E3%80%81%E9%83%A8%E7%BD%B2images%E5%92%8C%E5%AE%B9%E5%99%A8%EF%BC%89/</url>
+      
+        <content type="html"><![CDATA[<p>本NodeJs工程基于node-v8的docker镜像版本。</p><h2 id="1、Dockerfile文件"><a href="#1、Dockerfile文件" class="headerlink" title="1、Dockerfile文件"></a>1、Dockerfile文件</h2><p>首先，在node工程的根目录创建Dockerfile文件，该文件是node工程中对docker的配置文件。</p><p>1、创建Dcokerfile文件</p><pre><code>vi Dockerfile</code></pre><p>2、编写文件内容如下：</p><pre><code>#node镜像版本FROM node:8-alpine#声明作者MAINTAINER LIU#在image中创建文件夹RUN mkdir -p /home/Service#将该文件夹作为工作目录WORKDIR /home/Service# 将node工程下所有文件拷贝到Image下的文件夹中COPY . /home/Service#使用RUN命令执行npm install安装工程依赖库RUN npm install#暴露给主机的端口号EXPOSE 8888#执行npm start命令，启动Node工程CMD [ "npm", "start" ]</code></pre><h2 id="2、构建image"><a href="#2、构建image" class="headerlink" title="2、构建image"></a>2、构建image</h2><p>执行命令<code>docker build -t node-app:v1 .</code>&nbsp;需要注意v1后面还有一个<code>.</code><br /><br>其中 -t node-app:v1 为构建的镜像名称及标签</p><pre><code>[root@localhost test1]# docker build -t node-app:v1 .Sending build context to Docker daemon 4.096 kBStep 1/8 : FROM node:8-alpine ---> dd574b216ad7Step 2/8 : MAINTAINER LIU ---> Using cache ---> f3f22f068507Step 3/8 : RUN mkdir -p /home/Service ---> Using cache ---> 2222ce103ae1Step 4/8 : WORKDIR /home/Service ---> Using cache ---> e60fd914f709Step 5/8 : COPY . /home/Service ---> Using cache ---> 58000275f835Step 6/8 : RUN npm install ---> Using cache ---> e66dc16c44f4Step 7/8 : EXPOSE 8888 ---> Using cache ---> 2adff3739104Step 8/8 : CMD npm start ---> Using cache ---> 190fba2814a6Successfully built 190fba2814a6</code></pre><p>查看生成的image: <code>docker images</code>命令</p><pre><code>[root@localhost test1]# docker imagesREPOSITORY              TAG                 IMAGE ID            CREATED             SIZEnode-app                v1                  190fba2814a6        2 months ago        71 MB</code></pre><h2 id="3、运行container"><a href="#3、运行container" class="headerlink" title="3、运行container"></a>3、运行container</h2><blockquote><p>执行命令 <code>docker run -d -p 8888:8888 190f</code> <br /><br>其中， -d表示在容器后台运行，-p表示端口映射，将本机的8888端口映射到container的8888端口，外网访问本机的8888端口即可访问container。190f为生成的IMAGE的ID,只需要写入对应ID的前几位系统能辨识出对应的image即可。</p></blockquote><pre><code>[root@localhost test1]# docker run -d -p 8888:8888 190f1b335de60ff4ad0f75aa6c4458d4e91cc3839f6e606c5b09ff926bcebd6c9770</code></pre><blockquote><p>执行命令<code>docker ps</code>查看container是否运行</p></blockquote><pre><code>[root@localhost test1]# docker psCONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS                    NAMES1b335de60ff4        190f                &quot;npm start&quot;         4 seconds ago       Up 3 seconds        0.0.0.0:8888-&gt;8888/tcp   epic_swartz</code></pre><blockquote><p>通过命令docker logs 1b335 还可查看container的日志</p></blockquote><pre><code>[root@localhost test1]# docker logs 1b335&gt; webtest@1.0.0 start /home/Service&gt; node server.jsRunning on http://localhost:8888</code></pre><blockquote><p>说明服务已经启动。</p></blockquote><h2 id="4、进入容器"><a href="#4、进入容器" class="headerlink" title="4、进入容器"></a>4、进入容器</h2><p>为了方便查看容器内部文件和调试，可以通过命令进入容器中。容器内部就像一个小型的linux系统一样。命令为<code>docker exec -it 1b33 /bin/sh</code></p><pre><code>[root@localhost test1]# docker exec -it 1b33  /bin/sh/home/Service # lsDockerfile         node_modules       package-lock.json  package.json       server.js</code></pre><h2 id="5、日志"><a href="#5、日志" class="headerlink" title="5、日志"></a>5、日志</h2><ul><li>docker镜像中node工程会有打印日志功能，因为docker容器一旦挂掉，容器中的文件也会访问不了，所以日志必须要放在docker镜像外的文件路径下。此时，必须要将centos系统中的日志文件目录挂在到docker容器中，在容器启动时开启数据卷，实现日志采集。<br/></li><li>在启动容器时，使用命令<code>docker run -d -p 8888:8888 -v /home/logs:/data/logs 190f</code>即可。<code>/home/logs</code>为centos系统中日志文件目录，<code>data/logs</code>为docker容器中node工程写入日志路径。</li><li>如果docker容器中工程需要写入文件，则在启动时要加上<code>--privileged=true</code>才可以。<h2 id="6、打包与解压"><a href="#6、打包与解压" class="headerlink" title="6、打包与解压"></a>6、打包与解压</h2><blockquote><p>如果没有私有仓库，则可以通过save和load命令来打包和解压。<br>save将docker镜像压缩为tar文件，load为将tar文件解压生成镜像。</p></blockquote></li></ul><pre><code>[root@localhost docker]# docker imagesREPOSITORY              TAG                 IMAGE ID            CREATED             SIZEnode-app                v1                  190fba2814a6        2 months ago        71 MB[root@localhost docker]# docker save 190fba -o /home/docker/node-app-1.0.tar[root@localhost docker]# ll-rw-------. 1 root root 78526976 8月  26 19:38 node-app-1.0.tar</code></pre><blockquote><p>其中<code>/home/docker</code>文件路径为tar存放目录，必须提前建好，docker不会自动创建。<br /><br>而解压命令为:</p></blockquote><pre><code>[root@localhost docker]# docker load &lt; /home/docker/node-app-1.0.tarLoaded image ID: sha256:190fba2814a66291d06368a8afef499aa6f96f5d6def0b808d1fa5b76d862d53</code></pre><blockquote><p>此时容器将部署到环境中,可使用<code>docker images</code>查看。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker部署NodeJS实践(一、代理)</title>
+      <link href="/2019/10/27/Docker%E9%83%A8%E7%BD%B2NodeJS%E5%AE%9E%E8%B7%B5-%E4%B8%80%E3%80%81%E4%BB%A3%E7%90%86/"/>
+      <url>/2019/10/27/Docker%E9%83%A8%E7%BD%B2NodeJS%E5%AE%9E%E8%B7%B5-%E4%B8%80%E3%80%81%E4%BB%A3%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>本文在centos7系统中，采用Docker容器部署Nodejs工程。 Doceker版本1.31。</p><h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>1、在centos系统中安装docker后，有一些服务器是没有连接外网权限的，可以测试是否能ping通。如果ping不通，则需要配置代理。本系统具体的实际代理地址及端口号，输入env即可显示。</p><p>2、方法</p><blockquote><p>1、在<code>/etc/systemd/system</code>目录下创建一个的<code>docker.service.d</code>文件夹</p></blockquote><pre><code>mkdir -p /etc/systemd/system/docker.service.d</code></pre><blockquote><p>2、在<code>docker.service.d</code>文件夹下创建http-proxy.conf文件，并添加HTTP_PROXY变量，其中proxy-url和proxy-port分别改成实际情况的代理地址和端口：</p></blockquote><pre><code>Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port/&quot;&quot;HTTPS_PROXY=https://proxy-addr&quot;</code></pre><blockquote><p>3、如果有不需要使用代理来访问的Docker registries，那么还需要制定NO_PROXY环境变量：</p></blockquote><pre><code>Environment=&quot;HTTP_PROXY=http://proxy-addr:proxy-port/&quot;&quot;NO_PROXY=localhost,127.0.0.0/8&quot;</code></pre><blockquote><p>4、更新配置：</p></blockquote><pre><code>daemon-reload </code></pre><blockquote><p>5、重启docker服务</p></blockquote><pre><code>restart docker</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Docker </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
