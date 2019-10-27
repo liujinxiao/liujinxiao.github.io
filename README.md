@@ -1,3 +1,2 @@
 # liujinxiao.github.io
-blog
-blog
+记录日常技术笔记
