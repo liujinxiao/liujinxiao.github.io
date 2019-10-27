@@ -4,6 +4,110 @@
   
     
     <entry>
+      <title>nginx域名解析</title>
+      <link href="/2019/10/27/nginx%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/"/>
+      <url>/2019/10/27/nginx%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<p>nginx域名解析 </p><p>查找nginx位置  locate nginx.conf</p><p>1、若两个域名分别指向同一服务器ip的不同端口则需要配置两个server</p><p>在第二个服务中增加proxy_pass 指向对应的端口号即可</p><p>2、nginx -s reload  // 重启nginx</p><p>￼<br><img src="https://user-gold-cdn.xitu.io/2019/10/27/16e0da3f35c24257?w=2346&h=1768&f=png&s=411604" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Nginx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>被誉为神器的requestAnimationFrame</title>
+      <link href="/2019/10/27/%E8%A2%AB%E8%AA%89%E4%B8%BA%E7%A5%9E%E5%99%A8%E7%9A%84requestAnimationFrame/"/>
+      <url>/2019/10/27/%E8%A2%AB%E8%AA%89%E4%B8%BA%E7%A5%9E%E5%99%A8%E7%9A%84requestAnimationFrame/</url>
+      
+        <content type="html"><![CDATA[<h3 id="被誉为神器的requestAnimationFrame"><a href="#被誉为神器的requestAnimationFrame" class="headerlink" title="被誉为神器的requestAnimationFrame"></a>被誉为神器的requestAnimationFrame</h3><p> 参考文章<a href="https://www.cnblogs.com/xiaohuochai/p/5777186.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaohuochai/p/5777186.html</a></p><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>与setTimeout和setInterval不同，requestAnimationFrame不需要设置时间间隔。</p><p>setTimeout和setInterval的问题是，它们都不精确。它们的内在运行机制决定了时间间隔参数实际上只是指定了把动画代码添加到浏览器UI线程队列中以等待执行的时间。如果队列前面已经加入了其他任务，那动画代码就要等前面的任务完成后再执行</p><p>requestAnimationFrame采用系统时间间隔，保持最佳绘制效率，不会因为间隔时间过短，造成过度绘制，增加开销；也不会因为间隔时间太长，使用动画卡顿不流畅，让各种网页动画效果能够有一个统一的刷新机制，从而节省系统资源，提高系统性能，改善视觉效果。</p><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol><li>requestAnimationFrame会把每一帧中的所有DOM操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率</li><li>在隐藏或不可见的元素中，requestAnimationFrame将不会进行重绘或回流，这当然就意味着更少的CPU、GPU和内存使用量</li><li>requestAnimationFrame是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Javascript </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Javascript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浏览器渲染机制</title>
+      <link href="/2019/10/27/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/"/>
+      <url>/2019/10/27/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<h2 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h2><h3 id="浏览器的渲染机制一般分为以下几个步骤："><a href="#浏览器的渲染机制一般分为以下几个步骤：" class="headerlink" title="浏览器的渲染机制一般分为以下几个步骤："></a>浏览器的渲染机制一般分为以下几个步骤：</h3><ol><li>处理HTML并构建DOM树</li><li>处理CSS并构建CSSOM树</li><li>将DOM和CSSDOM合并成一个渲染树</li><li>根据渲染树来布局，计算每个节点的位置</li><li>调用GPU绘制，合成图层，显示在屏幕上。</li></ol><p><img src="https://i.imgur.com/UkcWpPL.png" alt="渲染机制"></p><blockquote><p>构建CSSOM树是一个非常消耗性能的过程，并且该过程会阻塞渲染，直到CSSOM树构建完成。所以应保证层级扁平，减少过度层叠，越是具体的CSS选择器越消耗性能</p></blockquote><blockquote><p>当HTML解析到<code>script</code>标签时，会暂停构建DOM树，完成后才会从暂停的地方重新开始。也就是说，如果想首屏渲染的越快，越不应该在首屏加载js文件。并且CSS也会影响JS的执行，只有当解析完样式表才会执行JS，所以，也可以认为这种情况下，CSS也会暂停构建DOM。</p></blockquote><h3 id="Load-和-DOMContentLoaded-区别"><a href="#Load-和-DOMContentLoaded-区别" class="headerlink" title="Load 和 DOMＣontentLoaded 区别"></a>Load 和 DOMＣontentLoaded 区别</h3><blockquote><p>Load事件触发代表页面的DOM，CSS，JS，图片已经全部加载完成。</p></blockquote><blockquote><p>DOMContentLoaded事件触发代表初始的HTML被完全加载和解析，不需要等待CSS JS 图片加载。</p></blockquote><h3 id="减少回流和重绘"><a href="#减少回流和重绘" class="headerlink" title="减少回流和重绘"></a>减少回流和重绘</h3><ol><li><p>使用<code>translate</code>替代<code>top</code></p></li><li><p>使用<code>visibility</code>替换<code>display:none</code>,因为前者只会引起重绘，而后者会引起回流(改变布局)</p></li><li><p>把 DOM 离线后修改，比如：先把 DOM 给 display:none (有一次 Reflow)，然后你修改 100 次，然后再把它显示出来</p></li><li><p>不要把 DOM 结点的属性值放在一个循环里当成循环里的变量</p><p> for (let i = 0; i &lt; 1000; i++) {<br>   // 获取 offsetTop 会导致回流，因为需要去获取正确的值<br>   console.log(document.querySelector(‘.test’).style.offsetTop)<br> }</p></li><li><p>不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局</p></li><li><p>动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame</p></li><li><p>CSS 选择符从右往左匹配查找，避免 DOM 深度过深</p></li><li><p>将频繁运行的动画变为图层，图层能够阻止该节点回流影响别的元素。比如对于 video 标签，浏览器会自动将该节点变为图层</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 浏览器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Javascript </tag>
+            
+            <tag> 浏览器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Egg知识整理系列(一)</title>
+      <link href="/2019/10/27/Egg%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E7%B3%BB%E5%88%97-%E4%B8%80/"/>
+      <url>/2019/10/27/Egg%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86%E7%B3%BB%E5%88%97-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Egg知识整理系列-一"><a href="#Egg知识整理系列-一" class="headerlink" title="Egg知识整理系列(一)"></a>Egg知识整理系列(一)</h2><h3 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h3><p>Koa是由Express框架原班人马打造的全新web框架，与Express风格类似，底层都是沿用同一套Http基础库，但是有几项显著差别：</p><ul><li>Middleware洋葱圈模型：Koa中间件采用洋葱圈模型，所有的请求经过中间件都会执行两次，可以非常方便的实现后置处理逻辑；</li><li>Context：与Express中只有Requese和Response不同，Koa增加了Context作为上下文对象，可以在请求中将相关字段挂载在Context上。</li><li>异常处理：用户可以很方便的自定义错误处理中间件放在其他中间件之前，就可以捕获到异步或同步代码发生的错误。如：<pre class=" language-shell"><code class="language-shell">  async function onerror(ctx, next) {      try {          await next();      } catch (err) {          ctx.app.emit('error', err);          ctx.body = 'server error';          ctx.status = err.status || 500;      }  }</code></pre></li></ul><h3 id="Egg继承Koa"><a href="#Egg继承Koa" class="headerlink" title="Egg继承Koa"></a>Egg继承Koa</h3><p>众所周知，Koa框架是一个极简框架扩展性非常强，而Egg在此基础上做了增强。</p><h5 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h5><p>在Egg框架中，可以通过定义<code>app/extend/{application,context,request,response}.js</code>来扩展Koa框架中四个框架的原型，如在<code>app/extend/context.js</code>中定义如下代码：</p><pre class=" language-shell"><code class="language-shell">module.exports = {    get isXXX() {        return xxx;    }}</code></pre><p>在controller.js中，可以利用刚才的定义：</p><pre class=" language-shell"><code class="language-shell">exports.handler = ctx => {  ctx.body = ctx.isXXX ? 'is xxx' : 'is not xxx';};</code></pre><h4 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h4><p>Egg提供了更加强大的插件机制，一个插件可以包含：</p><ul><li>extend: 扩展基础对象的上下文，提供各种工具类、属性。</li><li>middleware: 增加一个或多个中间件，提供请求的前置、后置处理逻辑。</li><li>config: 配置各个环境下插件自身的默认配置项。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Node </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Node </tag>
+            
+            <tag> Egg </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mac Source Tree fatal: Authentication failed解决办法</title>
       <link href="/2019/10/27/Mac-Source-Tree-fatal-Authentication-failed%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
       <url>/2019/10/27/Mac-Source-Tree-fatal-Authentication-failed%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
