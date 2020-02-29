@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>在Centos环境使用Puppteer</title>
+      <title>在Centos环境使用Puppeteer</title>
       <link href="/2020/02/29/%E5%9C%A8centos%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8Puppteer/"/>
       <url>/2020/02/29/%E5%9C%A8centos%E7%8E%AF%E5%A2%83%E4%BD%BF%E7%94%A8Puppteer/</url>
       
-        <content type="html"><![CDATA[<ul><li>Puppteer是一款由<code>google</code>推出的Node库，它提供了一高级api通过devtools协议来控制<code>Chromium</code>，该库使用方式简单，备受大家欢迎。一般通过<code>npm i puppeteer</code>即可使用，而不需安装其他依赖库。</li></ul><p>一般情况下，我们在MacOs或Windows系统下使用，正常安装都不会出现问题。但是在linux系统下就会出现一些依赖或其他问题。</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><img src="https://user-gold-cdn.xitu.io/2020/2/29/1708fcc32fd5b0a4?w=2686&h=1448&f=png&s=492284" alt="报错"></p><p>以上就是在centos系统下执行<code>npm install</code>所报的错误，由提示不能得出是因为下载<code>Chromium</code>失败导致。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>通过查阅资料得知，可能是因为缺少下载<code>Chromium</code>依赖导致。好在官方给出了各个包的安装方式。</p><pre><code>#依赖库yum install pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 -y</code></pre><p>执行完以上，再<code>npm install</code>发现还是报错，如下所示：</p><p><img src="https://user-gold-cdn.xitu.io/2020/2/29/1708fd18d54665b5?w=2658&h=1354&f=png&s=470773" alt=""></p><p>个人初步判断可能是资源下载问题，然后使用淘宝镜像执行<code>cnpm install</code>重试，成功！</p>]]></content>
+        <content type="html"><![CDATA[<ul><li>Puppeteer是一款由<code>google</code>推出的Node库，它提供了一高级api通过devtools协议来控制<code>Chromium</code>，该库使用方式简单，备受大家欢迎。一般通过<code>npm i puppeteer</code>即可使用，而不需安装其他依赖库。</li></ul><p>一般情况下，我们在MacOs或Windows系统下使用，正常安装都不会出现问题。但是在linux系统下就会出现一些依赖或其他问题。</p><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><img src="https://user-gold-cdn.xitu.io/2020/2/29/1708fcc32fd5b0a4?w=2686&h=1448&f=png&s=492284" alt="报错"></p><p>以上就是在centos系统下执行<code>npm install</code>所报的错误，由提示不能得出是因为下载<code>Chromium</code>失败导致。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>通过查阅资料得知，可能是因为缺少下载<code>Chromium</code>依赖导致。好在官方给出了各个包的安装方式。</p><pre><code>#依赖库yum install pango.x86_64 libXcomposite.x86_64 libXcursor.x86_64 libXdamage.x86_64 libXext.x86_64 libXi.x86_64 libXtst.x86_64 cups-libs.x86_64 libXScrnSaver.x86_64 libXrandr.x86_64 GConf2.x86_64 alsa-lib.x86_64 atk.x86_64 gtk3.x86_64 -y</code></pre><p>执行完以上，再<code>npm install</code>发现还是报错，如下所示：</p><p><img src="https://user-gold-cdn.xitu.io/2020/2/29/1708fd18d54665b5?w=2658&h=1354&f=png&s=470773" alt=""></p><p>个人初步判断可能是资源下载问题，然后使用淘宝镜像执行<code>cnpm install</code>重试，成功！</p>]]></content>
       
       
       <categories>
@@ -20,7 +20,7 @@
       
         <tags>
             
-            <tag> Puppteer </tag>
+            <tag> Puppeteer </tag>
             
         </tags>
       
